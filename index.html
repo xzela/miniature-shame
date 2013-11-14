@@ -8,19 +8,37 @@
 </head>
 <body>
 
-  <script type="text/x-handlebars">
-    <h2>Welcome to Ember.js</h2>
+<div class="content">
+    <div id="create-todo">
+        <input id="new-todo" placeholder="What needs to be done?" type="text" value="">
+    </div>
 
-    {{outlet}}
-  </script>
+    <div id="stats-area">
+        <div class="mark-all-done">
+            <label>
+                <input type="checkbox">Mark all as complete
+            </label>
+        </div>
+    </div>
 
-  <script type="text/x-handlebars" data-template-name="index">
-    <ul>
-    {{#each item in model}}
-      <li>{{item}}</li>
-    {{/each}}
-    </ul>
-  </script>
+    <div id="todos">
+        <ul id="todo-list">
+            <li>
+                <label><input type="checkbox" checked="checked">This is an item</label>
+            </li>
+            <li>
+                <label><input type="checkbox">This is another item</label>
+            </li>
+        </ul>
+    </div>
+
+    <div id="todo-stats">
+        <button type="button">
+            Clear 1 completed items
+        </button>
+        1 items left
+    </div>
+</div>
 
   <script src="js/libs/jquery-1.9.1.js"></script>
   <script src="js/libs/handlebars-1.0.0.js"></script>
