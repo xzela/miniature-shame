@@ -43,54 +43,56 @@ Roller.Roll = Ember.Object.extend({
 
 
 Roller.RollController = Ember.Controller.extend({
-    rollDice: function() {
-        var roll = this.get("rollString"),
-            content = [],
-            rolls = 0,
-            sides = 0,
-            errors = "",
-            i, rnd, roll_parts;
+    actions: {
+        rollDice: function() {
+            var roll = this.get("rollString"),
+                content = [],
+                rolls = 0,
+                sides = 0,
+                errors = "",
+                i, rnd, roll_parts;
 
-        // check roll
-        if (roll == undefined) {
-            this.set("errors", "Please fill out the text box!");
-            return
-        }
-
-        roll_parts = roll.split("d");
-
-        if (roll_parts.length !== 2) {
-            errors += "You need to enter a value in the format 'xdy'.  ";
-        } else {
-            // find the rolls and sides
-            rolls = parseInt(roll_parts[0]); // hopefully the rolls
-            sides = parseInt(roll_parts[1]); // hopefully the sides
-
-            if (isNaN(rolls) || isNaN(sides)){
-                errors += "Rolls and Sides must be numbers. ";
+            // check roll
+            if (roll == undefined) {
+                this.set("errors", "Please fill out the text box!");
+                return
             }
 
-            if (errors.length === 0) {
-                // generate all of the models
-                for (i = 0; i < sides; i++) {
-                    content.push(Roller.Roll.create({
-                        diceNumber: i + 1,
-                        totalRolls: rolls
-                    }));
+            roll_parts = roll.split("d");
+
+            if (roll_parts.length !== 2) {
+                errors += "You need to enter a value in the format 'xdy'.  ";
+            } else {
+                // find the rolls and sides
+                rolls = parseInt(roll_parts[0]); // hopefully the rolls
+                sides = parseInt(roll_parts[1]); // hopefully the sides
+
+                if (isNaN(rolls) || isNaN(sides)){
+                    errors += "Rolls and Sides must be numbers. ";
                 }
 
-                for(i = 0; i < rolls; i++) {
-                    rnd = Math.floor(Math.random() * sides);
+                if (errors.length === 0) {
+                    // generate all of the models
+                    for (i = 0; i < sides; i++) {
+                        content.push(Roller.Roll.create({
+                            diceNumber: i + 1,
+                            totalRolls: rolls
+                        }));
+                    }
 
-                    content[rnd].incrementProperty("numberOfRolls");
+                    for(i = 0; i < rolls; i++) {
+                        rnd = Math.floor(Math.random() * sides);
+
+                        content[rnd].incrementProperty("numberOfRolls");
+                    }
                 }
+
             }
+            // update the content
+            this.set("content", content);
 
+            // display errors
+            this.set("errors", errors)
         }
-        // update the content
-        this.set("content", content);
-
-        // display errors
-        this.set("errors", errors)
     }
 });
