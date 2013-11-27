@@ -2,43 +2,44 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Ember Starter Kit</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+<title>Dem Dice rollr </title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
-	<script type="text/x-handlebars">
-		<div class="navbar">
-			<div class="navbar-inner">
-				<a class="brand" href="#">Blogger</a>
-				<ul class="nav">
-					<li>{{#link-to 'posts'}} Posts{{/link-to}}</li>
-					<li>{{#link-to 'about'}} About {{/link-to}}</li>
-				</ul>
-			</div>
-		</div>
-		{{ outlet }}
-	</script>
-	<script type="text/x-handlebars" id="about">
-		<p>Foobar / About</p>
-		{{ App.version }}
-	</script>
+    <script type="text/x-handlebars" id="application">
+        <h1>Dice Roller</h1>
+        {{outlet}}
+    </script>
 
-	<script type="text/x-handlebars" id="posts">
-		<h1>Awsome posts?</h1>
-		{{#each item in App.List}}
-			<p>{{item.name}}</p>
-		{{/each}}
-	</script>
+    <script type="text/x-handlebars" id="index">
+        <p>
+            {{#linkTo "roll"}}Start rolling dice!{{/linkTo}}
+        </p>
+    </script>
 
+    <script type="text/x-handlebars" id="roll">
+        <p>
+            Enter your required dice roll below, for instance "3d6" will roll three six sided dice.
+        </p>
 
-	<script src="js/libs/jquery-1.9.1.js"></script>
-	<script src="js/libs/handlebars-1.0.0.js"></script>
-	<script src="js/libs/ember-1.1.2.js"></script>
-	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script> -->
-	<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script> -->
-	<script src="js/app.js"></script>
+        {{input valueBinding="rollString" placeholder="Enter your dice roll, e.g. '3d6' here"}}
 
+        <hr>
+
+        <h2>Results</h2>
+
+        {{#each roll in content}}
+            I rolled a dice
+        {{else}}
+            No results yet
+        {{/each}}
+    </script>
+
+    <script src="js/libs/jquery-1.9.1.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember-1.1.2.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
